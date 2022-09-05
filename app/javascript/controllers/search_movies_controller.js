@@ -11,6 +11,14 @@ export default class extends Controller {
   }
 
   update() {
-    console.log(this.inputTarget.value);
+    const url = `${this.formTarget.action}?query=${this.inputTarget.value}`;
+    fetch(url, {
+      method: 'GET',
+      headers: { "Accept": "text/plain"}
+    })
+      .then(res => res.text())
+      .then((fetchedFilmsHtml) => {
+        this.listTarget.outerHTML = fetchedFilmsHtml;
+      })
   }
 }
